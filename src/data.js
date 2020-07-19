@@ -1,6 +1,6 @@
 let savedTasks = JSON.parse(localStorage.getItem("tasks")) || [];
 
-export const data = {
+export const taskData = {
   lanes: [
     {
       id: "ToDo",

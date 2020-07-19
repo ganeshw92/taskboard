@@ -12,6 +12,11 @@
   margin-left: 25px;
 }
 
+.projects-nav span {
+  font-weight: 600;
+  color: #9b9b9b;
+}
+
 .projects-nav a {
   text-decoration: none;
 }

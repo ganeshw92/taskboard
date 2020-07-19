@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Modal from "react-modal";
 import Board from "react-trello";
 import "./taskboard.css";
-import { data } from "../../data";
+import { taskData } from "../../data";
 
-// Modal.setAppElement("#root");
+Modal.setAppElement("#root");
 
 let updatedData = {};
 
@@ -22,6 +22,11 @@ const customStyles = {
 function TaskBoard() {
   var subtitle;
   const [modalIsOpen, setIsOpen] = React.useState(false);
+  const [data, setTaskData] = useState(taskData);
+  useEffect(() => {
+    // Update the document title using the browser API
+    // data = data;
+  }, [data]);
   function openModal() {
     setIsOpen(true);
   }
@@ -54,13 +59,13 @@ function TaskBoard() {
     return (
       <article className={props.className} key={props.id}>
         <div className="card-header">
-          {/* <div
+          <button
             className="delete-card"
             title="Delete"
-            onClick={() => onCardDelete(props.id, props.laneId)}
+            onClick={(event) => onCardDelete(event, props.id, props.laneId)}
           >
             x
-          </div> */}
+          </button>
           <header
             className={
               props.laneId === "ToDo"
@@ -122,7 +127,7 @@ function TaskBoard() {
       savedTasks.push(newTask);
       localStorage.setItem("tasks", JSON.stringify(savedTasks));
       updatedData.lanes[0].cards.push(newTask);
-
+      setTaskData(data);
       closeModal();
     }
   };
@@ -136,21 +141,19 @@ function TaskBoard() {
     updatedData = newData;
   };
 
-  const onCardDelete = (cardId, laneId) => {
-    console.log("onCardDelete", { cardId, laneId });
-    let currentTasks = JSON.parse(localStorage.getItem("tasks")) || [];
-    let updatedTasks = currentTasks.filter((task) => task.id !== cardId);
+  const onCardDelete = (event, cardId, laneId) => {
+    event.preventDefault();
+    const currentTasks = JSON.parse(localStorage.getItem("tasks")) || [];
+    const updatedTasks = currentTasks.filter((task) => task.id !== cardId);
     localStorage.setItem("tasks", JSON.stringify(updatedTasks));
-    // data.lanes.map((lane, laneIndex) => {
-    //   lane.cards.map((card, cardIndex) => {
-    //     if (card.id === cardId) {
-    //       data.lanes[laneIndex].cards = data.lanes[laneIndex].cards.filter(
-    //         (card) => card.id !== cardId
-    //       );
-    //     }
-    //   });
-    // });
-    console.log("updatedTasks: ", { updatedTasks, currentTasks, data });
+    data.lanes.map((lane, laneIndex) => {
+      lane.cards.map((card, cardIndex) => {
+        if (card.id === cardId) {
+          lane.cards = lane.cards.filter((card) => card.id !== cardId);
+        }
+      });
+    });
+    setTaskData({ ...data, status: "deleted" });
   };
 
   const handleDragEnd = (
@@ -171,7 +174,24 @@ function TaskBoard() {
 
   const onCardClick = (cardId, metadata, laneId) => {};
   return (
-    <div className="App">
+    <div>
+      <div className="task-info">
+        <div className="icons">
+          <i class="fa fa-star-o icons star" aria-hidden="true"></i>
+          <i class="fa fa-user icons bg-gray" aria-hidden="true">
+            {" "}
+            <span>6 people</span>
+          </i>
+          <i class="fa fa-clock-o icons bg-orange" aria-hidden="true">
+            {" "}
+            <span>2 days left</span>
+          </i>
+        </div>
+        <div className="task-switcher">
+          <span>Show my task only</span>
+          <i class="fa fa-toggle-on icons star" aria-hidden="true"></i>
+        </div>
+      </div>
       <Board
         data={data}
         onCardClick={onCardClick}
@@ -179,7 +199,6 @@ function TaskBoard() {
         components={components}
         handleDragEnd={handleDragEnd}
         onDataChange={onDataChange}
-        onCardDelete={onCardDelete}
       />
       <button className="btn btn-round btn-add" id="btn1" onClick={openModal}>
         +

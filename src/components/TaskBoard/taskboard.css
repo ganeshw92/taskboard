@@ -27,6 +27,50 @@
   background-color: rebeccapurple;
 }
 
+.task-info {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  align-items: center;
+  height: 65px;
+  padding: 0 15px;
+}
+
+.icons {
+  color: #a5a4a4;
+  border-radius: 3px;
+  padding: 5px;
+  margin-right: 8px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.icons .fa {
+  margin-right: 10px;
+}
+
+.icons.star {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.bg-gray {
+  background-color: #f1f2f4;
+}
+
+.bg-orange {
+  background-color: #ffeecc;
+  color: #fa9500;
+  font-weight: 700;
+}
+
+.task-switcher span {
+  color: #a5a4a4;
+  font-weight: 600;
+  font-size: 14px;
+  margin-right: 10px;
+}
+
 .smooth-dnd-container .react-trello-lane {
   border-radius: 5px;
   padding: 10px 15px;
@@ -63,7 +107,10 @@ article.react-trello-card div {
   width: 15px;
   text-align: center;
   cursor: pointer;
-  /* display: none; */
+  background: transparent;
+  border: none;
+  outline: none;
+  padding: 5px;
 }
 .App .react-trello-board {
   background-color: #fff;
@@ -178,5 +225,14 @@ header.border-green::before {
   .content .smooth-dnd-container.horizontal {
     display: flex;
     overflow: auto;
+  }
+  .task-info {
+    padding: 0 10px;
+  }
+  .task-switcher span {
+    font-size: 12px;
+  }
+  .icons .fa {
+    margin-right: 6px;
   }
 }
