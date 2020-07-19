@@ -1,0 +1,182 @@
+.btn-add {
+  font-size: 32px;
+  position: fixed;
+  bottom: 35px;
+  right: 35px;
+}
+
+.btn-add:focus {
+  outline: none;
+}
+
+.Modal {
+  position: absolute;
+  top: 40px;
+  left: 40px;
+  right: 40px;
+  bottom: 40px;
+  background-color: papayawhip;
+}
+
+.Overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rebeccapurple;
+}
+
+.smooth-dnd-container .react-trello-lane {
+  border-radius: 5px;
+  padding: 10px 15px;
+  background-color: #f3f5f7;
+  margin: 5px 10px;
+  min-width: 310px;
+  align-self: flex-start;
+}
+
+.smooth-dnd-container .react-trello-card {
+  background-color: rgb(255, 255, 255);
+  position: relative;
+  cursor: pointer;
+  max-width: 280px;
+  margin-bottom: 7px;
+  min-width: 280px;
+  border-radius: 3px;
+  border-bottom: 1px solid rgb(204, 204, 204);
+  padding: 15px;
+  border-radius: 6px;
+  margin-bottom: 15px;
+}
+article.react-trello-card header,
+article.react-trello-card div {
+  border: none;
+}
+
+.delete-card {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  height: 15px;
+  font-size: 12px;
+  width: 15px;
+  text-align: center;
+  cursor: pointer;
+  /* display: none; */
+}
+.App .react-trello-board {
+  background-color: #fff;
+  padding: 10px;
+}
+
+/* custom css */
+
+.custom-lane {
+  display: flex;
+  justify-content: space-between;
+}
+
+.custom-lane .title {
+  font-weight: 700;
+}
+
+.custom-lane .actions {
+  font-size: 18px;
+  color: #a0a2a5;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.recording {
+  font-weight: 700;
+  color: #f03c3c;
+  font-size: 12px;
+  margin-right: 8px;
+}
+
+.recording::before {
+  content: "";
+  height: 9px;
+  width: 8px;
+  background: #f03c3c;
+  border-radius: 50%;
+  margin-right: 4px;
+  display: inline-block;
+}
+
+/* card start */
+
+.card-header {
+  margin-bottom: 10px;
+}
+
+.card-header header {
+  position: relative;
+  line-height: 1.4;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.card-header header::before {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -15px;
+  border-left: 4px solid #c2c2c2;
+}
+
+header.border-red::before {
+  border-left: 3px solid #f03c3c;
+}
+
+header.border-orange::before {
+  border-color: #f9c661;
+}
+
+header.border-green::before {
+  border-color: #6ce595;
+}
+
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.card-footer .users img {
+  max-width: 20px;
+  margin-left: 5px;
+  border-radius: 5px;
+}
+
+.card-footer .fa {
+  background: #f1f2f4;
+  color: #a5a4a4;
+  border-radius: 3px;
+  padding: 3px 4px;
+  margin-right: 8px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.smooth-dnd-container.horizontal {
+  white-space: normal;
+}
+
+.ReactModalPortal .modal-title {
+  margin: 0;
+  color: #000;
+}
+
+.modal-body {
+  margin: 15px 0;
+}
+
+@media (max-width: 768px) {
+  .content .smooth-dnd-container.horizontal {
+    display: flex;
+    overflow: auto;
+  }
+}
