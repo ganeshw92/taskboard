@@ -7,6 +7,7 @@ import { taskData } from "../../data";
 Modal.setAppElement("#root");
 
 let updatedData = {};
+let selectedOptions = [];
 
 const customStyles = {
   content: {
@@ -29,6 +30,7 @@ function TaskBoard() {
   }, [data]);
   function openModal() {
     setIsOpen(true);
+    selectedOptions = [];
   }
 
   function afterOpenModal() {
@@ -108,19 +110,41 @@ function TaskBoard() {
     );
   };
 
+  const onUserSelect = (event) => {
+    let options = document.getElementById("user").options;
+    selectedOptions = [];
+    for (let option of options) {
+      if (option.selected) {
+        selectedOptions.push(option.value);
+      }
+      // console.log("option", option.selected);
+    }
+    console.log("onUserSelect: ", selectedOptions);
+  };
+
   const addCard = () => {
     let title = document.getElementById("title").value;
     let desc = document.getElementById("desc").value;
     let userName = document.getElementById("username").value;
+    let user = document.getElementById("user").value;
 
     let savedTasks = JSON.parse(localStorage.getItem("tasks")) || [];
-
+    let selectedUsers = [];
+    selectedOptions.map((userId) => {
+      taskData.users.map((user) => {
+        if (userId === user.id) {
+          selectedUsers.push(user);
+        }
+      });
+    });
+    console.log("save users: ", selectedUsers);
     if (title && desc && userName) {
       let newTask = {
         id: new Date().getTime(),
         title: title,
         description: desc,
-        user: userName,
+        userName: userName,
+        users: selectedUsers,
         laneId: "ToDo",
       };
 
@@ -238,6 +262,22 @@ function TaskBoard() {
               placeholder="Enter User Name"
               className="field"
             />
+            <select
+              id="user"
+              name="user"
+              placeholder="Select User"
+              className="field multiselect"
+              onChange={onUserSelect}
+              multiple
+            >
+              {taskData.users.map((user) => {
+                return (
+                  <option value={user.id}>
+                    {user.firstName + " " + user.lastName}
+                  </option>
+                );
+              })}
+            </select>
           </form>
           <div className="text-right">
             <button

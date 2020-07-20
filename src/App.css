@@ -39,6 +39,10 @@ span {
   box-sizing: border-box;
 }
 
+.multiselect {
+  height: 100%;
+}
+
 .text-right {
   text-align: right;
 }

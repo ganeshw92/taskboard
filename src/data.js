@@ -33,4 +33,30 @@ export const taskData = {
       disallowAddingCard: true,
     },
   ],
+  users: [
+    {
+      id: "1",
+      firstName: "Ganesh",
+      lastName: "Waghmare",
+      email: "waghmare.ganesh2@gmail.com",
+    },
+    {
+      id: "2",
+      firstName: "Jay",
+      lastName: "Kulkarni",
+      email: "jay.kulkarni@gmail.com",
+    },
+    {
+      id: "3",
+      firstName: "Jeet",
+      lastName: "Patel",
+      email: "jeet.patel@gmail.com",
+    },
+    {
+      id: "4",
+      firstName: "Amar",
+      lastName: "Singh",
+      email: "amar.singh@gmail.com",
+    },
+  ],
 };
