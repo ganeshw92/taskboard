@@ -117,9 +117,8 @@ function TaskBoard() {
       if (option.selected) {
         selectedOptions.push(option.value);
       }
-      // console.log("option", option.selected);
+      //
     }
-    console.log("onUserSelect: ", selectedOptions);
   };
 
   const addCard = () => {
@@ -137,7 +136,7 @@ function TaskBoard() {
         }
       });
     });
-    console.log("save users: ", selectedUsers);
+
     if (title && desc && userName) {
       let newTask = {
         id: new Date().getTime(),
@@ -172,7 +171,7 @@ function TaskBoard() {
     localStorage.setItem("tasks", JSON.stringify(updatedTasks));
     data.lanes.map((lane, laneIndex) => {
       lane.cards.map((card, cardIndex) => {
-        if (card.id === cardId) {
+        if (lane.id === laneId && card.id === cardId) {
           lane.cards = lane.cards.filter((card) => card.id !== cardId);
         }
       });
@@ -272,7 +271,7 @@ function TaskBoard() {
             >
               {taskData.users.map((user) => {
                 return (
-                  <option value={user.id}>
+                  <option value={user.id} key={user.id}>
                     {user.firstName + " " + user.lastName}
                   </option>
                 );
