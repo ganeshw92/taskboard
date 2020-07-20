@@ -209,6 +209,7 @@ header.border-green::before {
 }
 
 .smooth-dnd-container.horizontal {
+  display: flex;
   white-space: normal;
 }
 
