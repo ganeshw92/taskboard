@@ -6,7 +6,7 @@ import { taskData } from "../../data";
 
 Modal.setAppElement("#root");
 
-let updatedData = {};
+let updatedData = null;
 let selectedOptions = [];
 
 const customStyles = {
@@ -138,7 +138,7 @@ function TaskBoard() {
     });
 
     if (title && desc && userName) {
-      let newTask = {
+      const task = {
         id: new Date().getTime(),
         title: title,
         description: desc,
@@ -147,16 +147,15 @@ function TaskBoard() {
         laneId: "ToDo",
       };
 
-      savedTasks.push(newTask);
+      savedTasks.push(task);
       localStorage.setItem("tasks", JSON.stringify(savedTasks));
-      updatedData.lanes[0].cards.push(newTask);
+      updatedData.lanes[0].cards.push(task);
       setTaskData(data);
       closeModal();
     }
   };
   const components = {
     LaneHeader: CustomLaneHeader,
-    // NewCardForm: NewCard,
     Card: CustomCard,
   };
 
@@ -166,16 +165,28 @@ function TaskBoard() {
 
   const onCardDelete = (event, cardId, laneId) => {
     event.preventDefault();
+    let cardIndex = null;
+    let laneIndex = null;
+    data.lanes = updatedData.lanes;
     const currentTasks = JSON.parse(localStorage.getItem("tasks")) || [];
-    const updatedTasks = currentTasks.filter((task) => task.id !== cardId);
-    localStorage.setItem("tasks", JSON.stringify(updatedTasks));
-    data.lanes.map((lane, laneIndex) => {
-      lane.cards.map((card, cardIndex) => {
+    currentTasks.map((card, i) => {
+      if (card.id === cardId) {
+        cardIndex = i;
+      }
+    });
+    currentTasks.splice(cardIndex, 1);
+    localStorage.setItem("tasks", JSON.stringify(currentTasks));
+
+    data.lanes.map((lane, ind) => {
+      lane.cards.map((card, index) => {
         if (lane.id === laneId && card.id === cardId) {
-          lane.cards = lane.cards.filter((card) => card.id !== cardId);
+          laneIndex = ind;
+          cardIndex = index;
         }
       });
     });
+
+    data.lanes[laneIndex].cards.splice(cardIndex, 1);
     setTaskData({ ...data, status: "deleted" });
   };
 
